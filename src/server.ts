@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
-import { Server } from 'http'
 import router from './routes'
 
 //chamo a funcao sempre que for usar as variáveis no arquivo
@@ -9,7 +8,7 @@ dotenv.config()
 //nova instância do express
 const app = express()
 
-//aqui posso usar urlencoded ou json no postman
+//aqui posso usar urlencoded ou json no body no postman
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
