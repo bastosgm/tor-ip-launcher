@@ -3,10 +3,7 @@ import fetch from 'cross-fetch'
 import { Irelays } from '../types/Irelays'
 import Ip from '../model/Ip'
 
-export const ping = (req: Request, res: Response) => {
-  res.json({ pong: true })
-}
-
+//Primeiro endpoint: GET todos os IPs TOR
 export const todos = async (req: Request, res: Response) => {
 
   //ambas listas de ips das duas fontes
@@ -53,11 +50,7 @@ export const todos = async (req: Request, res: Response) => {
   res.json([...ips1, ...ips2])
 }
 
-export const exceptions = async (req: Request, res: Response) => {
-  let exceptions = await Ip.find({})
-  res.json(exceptions)
-}
-
+//Segundo endpoint: POST com excessoes de ips
 export const add = async (req: Request, res: Response) => {
   const { ip } = req.body
 
@@ -67,7 +60,7 @@ export const add = async (req: Request, res: Response) => {
   try {
     await newIpException.save()
     console.log('Exception has been added.')
-    res.redirect('/')
+    res.json({})
   } catch (err) {
     console.log(err)
   }
