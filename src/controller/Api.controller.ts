@@ -53,7 +53,7 @@ export const todos = async (req: Request, res: Response) => {
 
 //Segundo endpoint: POST com excessoes de ips
 export const add = async (req: Request, res: Response) => {
-  const { ip } = req.body
+  const ip: string = req.body.ip
 
   let newIpException = new Ip()
   newIpException.ip = req.body.ip
