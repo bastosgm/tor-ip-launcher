@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import router from './routes'
+import mongoConn from './db/mongo'
 
 //chamo a funcao sempre que for usar as variáveis no arquivo
 dotenv.config()
+mongoConn()
 
 //nova instância do express
 const app = express()
