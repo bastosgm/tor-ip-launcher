@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import fetch from 'cross-fetch'
 import { Irelays } from '../types/Irelays'
+import Ip from '../model/Ip'
 
 export const ping = (req: Request, res: Response) => {
   res.json({ pong: true })
@@ -38,16 +39,36 @@ export const todos = async (req: Request, res: Response) => {
 
   //dan.me.uk
   try {
-    const response2 = await fetch('https://www.dan.me.uk/torlist/?exit')
+    const response2 = await fetch('https://www.dan.me.uk/torlist/')
     const txt = await response2.text()
 
     console.log(txt);
 
     //convertendo de string em array e pegando apenas ips
-    ips2 = txt.split(' ').filter(ip => ip.length < 20)
+    ips2 = txt.split('\n').filter(ip => ip.length < 20 && ip.length != 0)
   } catch (e) { console.error(e) }
 
   console.log(ips1.length, ips2)
 
   res.json([...ips1, ...ips2])
+}
+
+export const exceptions = async (req: Request, res: Response) => {
+  let exceptions = await Ip.find({})
+  res.json(exceptions)
+}
+
+export const add = async (req: Request, res: Response) => {
+  const { ip } = req.body
+
+  let newIpException = new Ip()
+  newIpException.ip = req.body.ip
+
+  try {
+    await newIpException.save()
+    console.log('Exception has been added.')
+    res.redirect('/')
+  } catch (err) {
+    console.log(err)
+  }
 }
