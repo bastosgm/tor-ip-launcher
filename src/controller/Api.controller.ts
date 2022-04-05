@@ -102,3 +102,5 @@ export const todosFiltrado = async (req: Request, res: Response) => {
 
   res.json(totalIps)
 }
+
+//precisa refatorar e tornar tudo em ingles
