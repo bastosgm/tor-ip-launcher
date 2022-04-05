@@ -1,13 +1,7 @@
-//1 - o type do model, mesma estrutura
-//2 - schema que especifica cada item: name: string, age: number etc.
-//3- o proprio model
-
+//1 - schema que especifica cada item: name: string, age: number etc.
+//2- o proprio model
 import { Schema, model, Model, connection } from 'mongoose'
-
-//type
-interface Iip {
-  ip: string
-}
+import { Iip } from '../types/Iip'
 
 //schema - so aceita esses ou menos
 const schema = new Schema<Iip>({
