@@ -45,9 +45,10 @@ export const todos = async (req: Request, res: Response) => {
     ips2 = txt.split('\n').filter(ip => ip.length < 20 && ip.length != 0)
   } catch (e) { console.error(e) }
 
-  console.log(ips1.length, ips2)
+  console.log(ips1.length, ips2.length)
+  var totalIps = [...ips1, ...ips2]
 
-  res.json([...ips1, ...ips2])
+  res.json(totalIps)
 }
 
 //Segundo endpoint: POST com excessoes de ips
