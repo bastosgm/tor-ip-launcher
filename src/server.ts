@@ -3,26 +3,26 @@ import dotenv from 'dotenv'
 import router from './routes'
 import mongoConn from './db/mongo'
 
-//chamo a funcao sempre que for usar as variáveis no arquivo
+//Chamo a funcao sempre que for usar as variaveis no arquivo
 dotenv.config()
 mongoConn()
 
-//nova instância do express
+//Nova instancia do express
 const app = express()
 
-//aqui posso usar urlencoded ou json no body no postman
+//Aqui posso usar urlencoded ou json no body no postman
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-//chamando o arquivo de rotas principal
+//Chamando o arquivo de rotas principal
 app.use('/api', router)
 
-//caso não seja encontrado uma rota acima
+//Caso nao seja encontrado uma rota acima
 app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Endpoint não encontrado.' })
 })
 
-//escuta e exibição da porta
+//escuta e exibicao da porta
 app.listen(process.env.PORT, () => {
   console.log(`Rodando na porta ${process.env.PORT}`)
 })
