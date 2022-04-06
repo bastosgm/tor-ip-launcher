@@ -19,10 +19,10 @@ app.use('/api', router)
 
 //Caso nao seja encontrado uma rota acima
 app.use((req: Request, res: Response) => {
-  res.status(404).json({ error: 'Endpoint não encontrado.' })
+  res.status(404).json({ error: 'Endpoint not found.' })
 })
 
 //Escuta e exibicao da porta
 app.listen(process.env.PORT, () => {
-  console.log(`Rodando na porta ${process.env.PORT}`)
+  console.log(`Listening on ${process.env.PORT}.`)
 })
