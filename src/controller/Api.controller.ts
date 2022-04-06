@@ -3,6 +3,9 @@ import fetch from 'cross-fetch'
 import { Irelays } from '../types/Irelays'
 import Ip from '../model/Ip'
 
+//funcao pra testar se array tem elementos duplicados
+const hasDuplicates = (arr: string[]) => (new Set(arr)).size !== arr.length
+
 //Primeiro endpoint: GET todos os IPs TOR
 export const ipsTor = async (req: Request, res: Response) => {
 
@@ -38,10 +41,12 @@ export const ipsTor = async (req: Request, res: Response) => {
     const response2 = await fetch('https://www.dan.me.uk/torlist/')
     const txt = await response2.text()
 
-    //Convertendo de string para array e extraindo apenas IPs
-    ips2 = txt.split('\n').filter(ip => ip.length < 20 && ip.length != 0)
+    //Convertendo de string para array e extraindo apenas IPs que não se repetem
+    ips2 = txt.split('\n').filter((ip, i) => ip.length < 16 && ip.length != 0)
   } catch (e) { console.error(e) }
-  res.json([...ips1, ...ips2])
+
+  const totalIps = [...new Set([...ips1, ...ips2])]
+  res.json(totalIps)
 }
 
 //Segundo endpoint: POST - excecoes de IPs
@@ -81,21 +86,24 @@ export const filteredIpsTor = async (req: Request, res: Response) => {
       return relay.a[0]
     })
     ips1 = [...ips, ...ipsAMais]
-    console.log(ips1.length)
   } catch (err) { console.error(err) }
 
   //Dan.me.uk
   try {
     const response2 = await fetch('https://www.dan.me.uk/torlist/')
     const txt = await response2.text()
-    ips2 = txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0)
-    console.log(ips2.length)
+    ips2 = txt.split('\n').filter((ip, i) => ip.length < 20 && ip.length != 0)
   } catch (err) { console.error(err) }
 
-  const totalIps = [...ips1, ...ips2]
+  const totalIps = [...new Set([...ips1, ...ips2])]
+  console.log(`Has totalIps cloned ips ? ${hasDuplicates(totalIps)}.`)
+  console.log(`Total Ips without exceptions: ${totalIps.length}.`)
+
   for (let i = 0; i < exceptions.length; i++) {
     //Consulta as excecoes do banco e caso exista esse ip, a retira da lista
     totalIps.includes(exceptions[i]) ? totalIps.splice(totalIps.indexOf(exceptions[i]), 1) : ''
   }
+  console.log(`Total Ips with exceptions: ${totalIps.length}.`)
+
   res.json(totalIps)
 }
