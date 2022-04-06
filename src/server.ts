@@ -22,7 +22,7 @@ app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Endpoint não encontrado.' })
 })
 
-//escuta e exibicao da porta
+//Escuta e exibicao da porta
 app.listen(process.env.PORT, () => {
   console.log(`Rodando na porta ${process.env.PORT}`)
 })
