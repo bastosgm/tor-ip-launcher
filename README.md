@@ -37,7 +37,7 @@ Após já estar rodando os containers, para acessar a documentação da API aces
 
 ## Referências
 
-[Documentação do Node](https://nodejs.org/en/docs/)
+[Documentação do Node](https://nodejs.org/en/docs/)</br>
 [Documentação do Typescript](https://www.typescriptlang.org/docs/)
 [Documentação do Express](https://expressjs.com)
 [Documentação do Mongoose](https://mongoosejs.com)
