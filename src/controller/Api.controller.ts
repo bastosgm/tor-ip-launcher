@@ -42,7 +42,7 @@ export const ipsTor = async (req: Request, res: Response) => {
     const txt = await response2.text()
 
     //Convertendo de string para array e extraindo apenas IPs que não se repetem
-    ips2 = txt.split('\n').filter((ip, i) => ip.length < 16 && ip.length != 0)
+    ips2 = txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0)
   } catch (e) { console.error(e) }
 
   const totalIps = [...new Set([...ips1, ...ips2])]
@@ -53,14 +53,15 @@ export const ipsTor = async (req: Request, res: Response) => {
 export const addException = async (req: Request, res: Response) => {
   let newIpException = new Ip()
   newIpException.ip = req.body.ip
-
-  try {
-    await newIpException.save()
-    console.log('Exception has been added.')
-    res.json({})
-  } catch (err) {
-    console.error(err)
-  }
+  if (newIpException.ip) {
+    try {
+      await newIpException.save()
+      console.log('Exception has been added.')
+      res.status(201).json(newIpException.ip)
+    } catch (err) {
+      console.error(err)
+    }
+  } else res.status(400).json({ Error: "Cannot be null." })
 }
 
 //Terceiro endpoint: GET - todos IPs EXCETO as excecoes do DB
@@ -96,7 +97,7 @@ export const filteredIpsTor = async (req: Request, res: Response) => {
   } catch (err) { console.error(err) }
 
   const totalIps = [...new Set([...ips1, ...ips2])]
-  console.log(`Has totalIps cloned ips ? ${hasDuplicates(totalIps)}.`)
+  // console.log(`Has totalIps cloned ips ? ${hasDuplicates(totalIps)}.`)
   console.log(`Total Ips without exceptions: ${totalIps.length}.`)
 
   for (let i = 0; i < exceptions.length; i++) {
@@ -104,6 +105,5 @@ export const filteredIpsTor = async (req: Request, res: Response) => {
     totalIps.includes(exceptions[i]) ? totalIps.splice(totalIps.indexOf(exceptions[i]), 1) : ''
   }
   console.log(`Total Ips with exceptions: ${totalIps.length}.`)
-
   res.json(totalIps)
 }

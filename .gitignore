@@ -12,5 +12,4 @@ anotacoes.txt
 uploads/*
 !uploads/.gitkeep
 
-data
 datadb

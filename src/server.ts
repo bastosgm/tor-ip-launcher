@@ -12,14 +12,17 @@ mongoConn()
 
 //Nova instancia do express
 const app = express()
+//cors para evitar conflito
 app.use(cors())
 
-//Aqui posso usar urlencoded ou json no body no postman
+//Aqui deixo duas opcoes de body
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-//Chamando o arquivo de rotas principal
+//Arquivo de rotas principal
 app.use('/api', router)
+
+//Documentação
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 //Caso nao seja encontrado uma rota acima
