@@ -1,5 +1,7 @@
 # IPs Tor API
 
+![API](./public/img/readme-wallpaper.png)
+
 Feita em Typescript e Node usando Express e Mongoose para manipular a base de dados NoSql. Documentada com Swagger UI.
 
 ## Instruções
