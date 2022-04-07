@@ -1,35 +1,50 @@
 # IPs Tor API
 
-API que retorna uma lista de IPs Tor e permite adicionar exceções. Feita em Typescript e Node usando Express e Mongoose para manipular o DB
+Feita em Typescript e Node usando Express e Mongoose para manipular a base de dados NoSql. Documentada com Swagger UI.
 
 ## Instruções
 
-Execute o comando para compor o container:
+No ato de clonar o repositório, um arquivo .env necessita ser criado com a porta e a url abaixo:
 
 ```
-   sudo docker-compose up
+   PORT=5555
+   MONGO_URL=mongodb://db:27017/exceptions
+```
+
+Caso surja um erro da porta do mongodb em uso, encerre o processo que usa a mesma. Uma das formas será, por exemplo:
+
+```
+   sudo netstat -pna | grep 27017
+   sudo kill -9 <PID>
+```
+
+Execute o comando para compor os containers:
+
+```
+   docker-compose up
 ```
 
 **\_Obs.:** você pode usar a flag -d para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize sudo para ceder autorização ou y para aceitar algum pedido.
-**\_Lembrando.:** O Docker precisa estar instalado, assim como o docker-compose
+**\_Lembrando.:** O Docker precisa estar instalado, assim como o docker-compose e também o Node.
 
+[Node](https://nodejs.org/en/download/)
 [Docker](https://docs.docker.com/get-docker/)
 [Docker compose](https://docs.docker.com/compose/install/)
 
-Após já estar rodando o container, para acessar a documentação da API acesse o link abaixo:
+Após já estar rodando os containers, para acessar a documentação da API acesse o link abaixo:
 
-[Docker compose](https://docs.docker.com/compose/install/)
-Ou:
-http://localhost:5555/doc
+[Documentação API](http://localhost:5555/doc/) ou http://localhost:5555/doc
 
 ## Referências
 
+[Documentação do Node](https://nodejs.org/en/docs/)
 [Documentação do Typescript](https://www.typescriptlang.org/docs/)
 [Documentação do Express](https://expressjs.com)
 [Documentação do Mongoose](https://mongoosejs.com)
+[Documentação do Swagger](https://swagger.io/docs/specification/about/)
 [Fonte 1 dos IPs](https://www.dan.me.uk/tornodes)
 [Fonte 2 dos IPs](https://onionoo.torproject.org/summary?limit=5000)
 
 ## Observações
 
-Este desafio foi promovido pela empresa [Proof.](https://www.proof.com.br/). Muito agradecido pela experiência!
+Este desafio foi proposto pela equipe da empresa [Proof. - Segurança da Informação](https://www.proof.com.br/). Muito grato pela experiência!
