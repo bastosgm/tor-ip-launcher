@@ -27,8 +27,8 @@ Execute o comando para compor os containers:
 **\_Obs.:** você pode usar a flag -d para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize sudo para ceder autorização ou y para aceitar algum pedido.
 **\_Lembrando.:** O Docker precisa estar instalado, assim como o docker-compose e também o Node.
 
-[Node](https://nodejs.org/en/download/)
-[Docker](https://docs.docker.com/get-docker/)
+[Node](https://nodejs.org/en/download/)</br>
+[Docker](https://docs.docker.com/get-docker/)</br>
 [Docker compose](https://docs.docker.com/compose/install/)
 
 Após já estar rodando os containers, para acessar a documentação da API acesse o link abaixo:
@@ -38,11 +38,11 @@ Após já estar rodando os containers, para acessar a documentação da API aces
 ## Referências
 
 [Documentação do Node](https://nodejs.org/en/docs/)</br>
-[Documentação do Typescript](https://www.typescriptlang.org/docs/)
-[Documentação do Express](https://expressjs.com)
-[Documentação do Mongoose](https://mongoosejs.com)
-[Documentação do Swagger](https://swagger.io/docs/specification/about/)
-[Fonte 1 dos IPs](https://www.dan.me.uk/tornodes)
+[Documentação do Typescript](https://www.typescriptlang.org/docs/)</br>
+[Documentação do Express](https://expressjs.com)</br>
+[Documentação do Mongoose](https://mongoosejs.com)</br>
+[Documentação do Swagger](https://swagger.io/docs/specification/about/)</br>
+[Fonte 1 dos IPs](https://www.dan.me.uk/tornodes)</br>
 [Fonte 2 dos IPs](https://onionoo.torproject.org/summary?limit=5000)
 
 ## Observações
