@@ -24,7 +24,7 @@ Execute o comando para compor os containers:
    docker-compose up
 ```
 
-**\_Obs.:** você pode usar a flag -d para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize sudo para ceder autorização ou y para aceitar algum pedido.
+**\_Obs.:** você pode usar a flag -d para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize sudo para ceder autorização ou y para aceitar algum pedido.</br>
 **\_Lembrando.:** O Docker precisa estar instalado, assim como o docker-compose e também o Node.
 
 [Node](https://nodejs.org/en/download/)</br>
