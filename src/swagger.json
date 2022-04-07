@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "IPs Tor API",
+    "description": "API que lista e filtra IPs da rede Tor cedidos por fontes oficiais. Abaixo seguem as possíveis rotas de acesso:",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/ips-tor": {
+      "get": {
+        "tags": ["Rotas"],
+        "summary": "Retorna a lista de IPs disponíveis",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/add-exception": {
+      "post": {
+        "tags": ["Rotas"],
+        "summary": "Envia uma exceção de IP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Exception has been added."
+          },
+          "400": {
+            "description": "Cannot be null."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/api/ips-tor-with-exceptions": {
+      "get": {
+        "tags": ["Rotas"],
+        "summary": "Retorna a lista já filtrada",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    }
+  }
+}
