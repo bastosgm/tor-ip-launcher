@@ -1,4 +1,5 @@
 import { Irelays } from '../types/Irelays'
+import fetch from 'cross-fetch'
 
 const font1 = async () => {
 
