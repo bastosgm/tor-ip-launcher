@@ -54,7 +54,7 @@
             "description": "Exception has been added."
           },
           "400": {
-            "description": "Cannot be null."
+            "description": "Invalid IP."
           },
           "500": {
             "description": "Internal Server Error."
