@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Ip from '../model/Ip'
+import Exception from '../model/Exception'
 import font1 from '../services/font1Service'
 import font2 from '../services/font2Service'
 
@@ -18,7 +18,7 @@ export const ipsTor = async (req: Request, res: Response) => {
 //Segundo endpoint: POST - excecoes de IPs
 export const addException = async (req: Request, res: Response) => {
   const rgx = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
-  const newIpException = new Ip()
+  const newIpException = new Exception()
   newIpException.ip = req.body.ip
   if (rgx.test(newIpException.ip)) {
     try {
@@ -33,7 +33,7 @@ export const addException = async (req: Request, res: Response) => {
 
 //Terceiro endpoint: GET - todos IPs EXCETO as excecoes do DB
 export const filteredIpsTor = async (req: Request, res: Response) => {
-  const result = await Ip.find({})
+  const result = await Exception.find({})
   const exceptions = result.map(obj => obj.ip)
 
   //Onionoo

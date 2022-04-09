@@ -1,22 +1,22 @@
 //1 - Schema que especifica a regra de negocio
 //2 - O proprio model
 import { Schema, model, Model, connection } from 'mongoose'
-import { Iip } from '../types/Iip'
+import { IExceptions } from '../types/IExceptions'
 
-//Schema - so aceita esses ou menos
-const schema = new Schema<Iip>({
+//Font2
+const Font2Schema = new Schema<IExceptions>({
   ip: String
-})
+}, { collection: 'font2' })
 
 //Model - nome desse model aqui
 //Facilita autocomplete quando chamado em outros lugares
-const modelName: string = 'Ip'
+const modelFont2Name: string = 'Font2'
 
 //Esse ternario evita de ficar recriando o que ja existe
 //Se tem uma conexao e tem um model criado dentro da conexao, retorna ele
 //Senao, cria esse model
-export default (connection && connection.models[modelName]) ?
+export default (connection && connection.models[modelFont2Name]) ?
   //Tem que tipar com a classe Model
-  connection.models[modelName] as Model<Iip>
+  connection.models[modelFont2Name] as Model<IExceptions>
   :
-  model<Iip>(modelName, schema)
+  model<IExceptions>(modelFont2Name, Font2Schema)

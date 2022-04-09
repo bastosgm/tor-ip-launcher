@@ -1,4 +1,4 @@
-export interface Irelays {
+export interface IRelays {
   n: string
   f: string
   a: string[]
