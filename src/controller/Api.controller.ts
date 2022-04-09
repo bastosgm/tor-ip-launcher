@@ -1,6 +1,4 @@
 import { Request, Response } from 'express'
-import fetch from 'cross-fetch'
-import { Irelays } from '../types/Irelays'
 import Ip from '../model/Ip'
 import font1 from '../services/font1Service'
 import font2 from '../services/font2Service'
@@ -19,9 +17,10 @@ export const ipsTor = async (req: Request, res: Response) => {
 
 //Segundo endpoint: POST - excecoes de IPs
 export const addException = async (req: Request, res: Response) => {
+  const rgx = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
   const newIpException = new Ip()
   newIpException.ip = req.body.ip
-  if (newIpException.ip) {
+  if (rgx.test(newIpException.ip)) {
     try {
       await newIpException.save()
       console.log('Exception has been added.')
@@ -29,7 +28,7 @@ export const addException = async (req: Request, res: Response) => {
     } catch (err) {
       console.error(err)
     }
-  } else res.status(400).json({ Error: "Cannot be null." })
+  } else res.status(400).json({ Error: "Invalid IP" })
 }
 
 //Terceiro endpoint: GET - todos IPs EXCETO as excecoes do DB
