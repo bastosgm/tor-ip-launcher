@@ -22,7 +22,9 @@ const font1 = async () => {
       }
       return relay.a[0]
     })
-    const ips: string[] = [...ips1, ...ips2]
+
+    //Gera array de ips que não se repetem
+    const ips: string[] = [...new Set([...ips1, ...ips2])]
     return ips
   } catch (err) {
     console.error(err)
