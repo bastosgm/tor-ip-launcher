@@ -24,8 +24,9 @@ export const addException = async (req: Request, res: Response) => {
   const rgx = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
   const newIpException = new Exception()
   newIpException.ip = req.body.ip
-  //true = formato compativel com de um IP
-  if (rgx.test(newIpException.ip)) {
+  const ipExists = await Exception.findOne({ ip: newIpException.ip })
+  //se for de formato compativel com de um IP e ja nao existir
+  if (rgx.test(newIpException.ip) && !ipExists) {
     try {
       await newIpException.save()
       console.log(`Exception ${newIpException.ip} has been added.`)
@@ -33,7 +34,7 @@ export const addException = async (req: Request, res: Response) => {
     } catch (err) {
       console.error(err)
     }
-  } else res.status(400).json({ Error: "Invalid IP." })
+  } else res.status(400).json({ Error: "Invalid or existing IP." })
 }
 
 //Terceiro endpoint: GET - todos IPs EXCETO as excecoes do DB

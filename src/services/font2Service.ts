@@ -1,19 +1,53 @@
 import fetch from 'cross-fetch'
 import Font2 from '../model/Font2'
-import { IRelays } from '../types/IRelays'
+import { add, isAfter } from 'date-fns'
+import { LocalStorage } from 'node-localstorage'
 
-//Tera a funcao de puxar da fonte2, armazenar no BD e apenas atualizar os IPs adicionando e excluindo, de forma a deixar os IPs do banco = IPs da fonte naquele momento
+//Tera a funcao de puxar da fonte2, armazenar no BD e apenas atualizar os IPs adicionando e excluindo, de forma a deixar os IPs do banco = IPs da fonte2 naquele momento que houve atualizacao
 const font2 = async () => {
 
+  //Definindo localStorage
+  const localStorage = new LocalStorage('./dates')
+  let ipsFont2: string[] = []
+
   try {
-    //Extraindo da fonte 2
-    const response = await fetch('https://www.dan.me.uk/torlist/')
-    const txt = await response.text()
-    let ipsFont2: string[] = []
-    //'U' e a primeira letra da mensagem de timeout
-    //Convertendo de string para array e extraindo apenas IPs que não se repetem
-    if (txt[0] !== 'U') {
-      ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
+
+    //Datas para comparacao
+    const now = new Date(Date.now())
+    const lastUpdate: Date = new Date(localStorage.getItem('lastUpdate') || '')
+
+    //Se nao existir uma atualizacao anterior, cria nova e permite atualizacao da font2
+    if (!localStorage.getItem('lastUpdate')) {
+      localStorage.setItem('lastUpdate', now.toString())
+      console.log('New lastUpdate was created in localStorage.')
+
+      //Extraindo da fonte 2
+      const response = await fetch('https://www.dan.me.uk/torlist/')
+      const txt = await response.text()
+      //'U' e a primeira letra da mensagem de timeout
+      //Convertendo de string para array e extraindo apenas IPs que não se repetem
+      if (txt[0] !== 'U') {
+        ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
+      }
+    }
+
+    //Se passou de 30 minutos da ultima atualizacao, cria nova e permite atualizar a font2
+    if (isAfter(now, add(lastUpdate, { minutes: 30 }))) {
+      localStorage.setItem('lastUpdate', now.toString())
+      console.log('New lastUpdate was created in localStorage.')
+      console.log('font2 is able to update.')
+
+      //Extraindo da fonte 2
+      const response = await fetch('https://www.dan.me.uk/torlist/')
+      const txt = await response.text()
+      //'U' e a primeira letra da mensagem de timeout
+      //Convertendo de string para array e extraindo apenas IPs que não se repetem
+      if (txt[0] !== 'U') {
+        ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
+      }
+    } else {
+      //Caso nao tenha passado de 30 min, usa a versao atual da lista no banco
+      console.log('Could not update: font2 still under timeout.')
     }
 
     //Extraindo do banco para comparacoes
@@ -21,19 +55,21 @@ const font2 = async () => {
     let ipsBanco: string[] = result.map(obj => obj.ip)
 
     //A cada loop e criado uma nova instancia, adicionando o IP e salvando no BD
-    ipsFont2.map(async (ip) => {
-      //Conferi se ja existe o IP da ipsBanco no banco, caso nao, adiciona
-      if (!ipsBanco.includes(ip)) {
-        const newFont2 = new Font2()
-        newFont2.ip = ip
-        try {
-          await newFont2.save()
-          console.log(`${newFont2.ip} has been added.`)
-        } catch (err) {
-          console.error(err)
+    if (ipsFont2) {
+      ipsFont2.map(async (ip) => {
+        //Conferi se ja existe o IP da ipsFont2 no banco, caso nao, adiciona
+        if (!ipsBanco.includes(ip)) {
+          const newFont2 = new Font2()
+          newFont2.ip = ip
+          try {
+            await newFont2.save()
+            console.log(`${newFont2.ip} has been added.`)
+          } catch (err) {
+            console.error(err)
+          }
         }
-      }
-    })
+      })
+    }
 
     //Testa se nao e vazio pra que nao exclua o que tem salvo no BD
     if (ipsFont2.length >= 1) {
@@ -48,15 +84,14 @@ const font2 = async () => {
           }
         }
       })
-
-      //Puxa todos itens salvos no bd atualizado e faz um array de ipsBanco
-      result = await Font2.find({})
-      ipsBanco = result.map(obj => obj.ip)
-
-      return ipsBanco
-    } else {
-      return []
     }
+
+    //Puxa todos itens salvos no bd atualizado e faz um array de ipsBanco
+    result = await Font2.find({})
+    ipsBanco = result.map(obj => obj.ip)
+
+    return ipsBanco
+
   } catch (err) {
     console.error(err)
     return []
