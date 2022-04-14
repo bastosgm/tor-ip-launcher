@@ -7,7 +7,7 @@ services:
       - ./datadb:/data/db
     ports:
       - '27017:27017'
-  app:
+  api:
     build: .
     command: npm run server
     volumes:
@@ -16,3 +16,9 @@ services:
       - '5555:5555'
     depends_on:
       - db
+  interface:
+    build: ./src/view/interface/
+    ports:
+      - "3001:3000"
+    links:
+      - "api"
