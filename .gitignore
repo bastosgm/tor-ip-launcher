@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 node_modules/
+src/view/interface/node_modules
 build/
 temp/
 .env
