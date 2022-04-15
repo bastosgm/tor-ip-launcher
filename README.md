@@ -54,6 +54,8 @@ Após já estar rodando os containers, para acessar a documentação da API aces
 
 [Documentação API](http://localhost:5555/doc/) ou http://localhost:5555/doc
 
+<br>
+
 ## Referências
 
 [Documentação do Node](https://nodejs.org/en/docs/)</br>
@@ -63,6 +65,8 @@ Após já estar rodando os containers, para acessar a documentação da API aces
 [Documentação do Swagger](https://swagger.io/docs/specification/about/)</br>
 [Fonte 1 dos IPs](https://www.dan.me.uk/tornodes)</br>
 [Fonte 2 dos IPs](https://onionoo.torproject.org/summary?limit=5000)
+
+<br>
 
 ## Agradecimentos
 
