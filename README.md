@@ -1,8 +1,25 @@
-# IPs Tor API
+<h1 align="center">
+<br>
+    IPs Tor API
+<hr>
 
 ![API](./public/img/readme-wallpaper.png)
 
-Feita em Typescript e Node usando Express e Mongoose para manipular a base de dados NoSql. Documentada com Swagger UI.
+</h1>
+
+## Features
+
+Abaixo estão todas as features usadas nesse projeto:
+
+- **Typescript** — Superset Javascript
+- **React & CRA** — Biblioteca Javascript e base de projeto
+- **TailwindCSS** — Estilização
+- **Express** — Server Framework Node
+- **MongoDB & Mongoose** — Banco de dados NoSQL e biblioteca Javascript
+- **node-localstorage** — Biblioteca Javascript
+- **date-fns** — Biblioteca para manipulação de tempo, hora e data
+
+<br>
 
 ## Instruções
 
