@@ -22,13 +22,24 @@ const font2 = async () => {
       console.log('New lastUpdate was created in localStorage.')
 
       //Extraindo da fonte 2
-      const response = await fetch('https://www.dan.me.uk/torlist/')
-      const txt = await response.text()
-      //'U' e a primeira letra da mensagem de timeout
-      //Convertendo de string para array e extraindo apenas IPs que não se repetem
-      if (txt[0] !== 'U') {
-        ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
+      try {
+        const response = await fetch('https://www.dan.me.uk/torlist/')
+        const txt = await response.text()
+        //'U' e a primeira letra da mensagem de timeout
+        //Convertendo de string para array e extraindo apenas IPs que não se repetem
+        if (typeof txt[0] === "number") {
+          ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
+        } else {
+          console.log(`Still under timeout or server error`)
+        }
+      } catch (err) {
+        console.error(err)
       }
+
+      // else {
+      //   console.log(`txt é do tipo number? ${typeof txt[0] === "number"}`)
+      //   console.log(`retorno da font2: ${txt}`)
+      // }
     }
 
     //Se passou de 30 minutos da ultima atualizacao, cria nova e permite atualizar a font2
@@ -40,9 +51,10 @@ const font2 = async () => {
       //Extraindo da fonte 2
       const response = await fetch('https://www.dan.me.uk/torlist/')
       const txt = await response.text()
+
       //'U' e a primeira letra da mensagem de timeout
       //Convertendo de string para array e extraindo apenas IPs que não se repetem
-      if (txt[0] !== 'U') {
+      if (typeof txt[0] === "number") {
         ipsFont2 = [...new Set(txt.split('\n').filter(ip => ip.length < 16 && ip.length != 0))]
       }
     } else {
