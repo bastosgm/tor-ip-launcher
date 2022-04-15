@@ -1,5 +1,6 @@
 import { IButtonZone } from '../types/IButtonZone'
 
+//Define as props do componente que são do tipo importado acima
 export const ButtonZone = ({
   setList,
   setFilteredList,
@@ -23,6 +24,7 @@ export const ButtonZone = ({
     } catch (err) {
       console.error(err)
       setLoading(false)
+      setColor('bg-gray-700 hover:bg-gray-800')
       setMessage('Desculpe, acho que errei o caminho :(')
     }
   }
@@ -42,6 +44,7 @@ export const ButtonZone = ({
     } catch (err) {
       console.error(err)
       setLoading(false)
+      setColor('bg-gray-700 hover:bg-gray-800')
       setMessage('Desculpe, acho que errei o caminho :(')
     }
   }
@@ -49,14 +52,16 @@ export const ButtonZone = ({
   return (
     <div className='bg-white px-4 py-2 mb-12 xl:mb-0'>
       {/* Gerar completa */}
-      <button className={`${color} text-white rounded-md py-2 px-5 my-2 mr-4`} onClick={handleList}>
+      <button className={`${color} text-white rounded-md py-2 px-8 my-2 mr-4`} onClick={handleList}>
         Gerar completa
       </button>
 
       {/* Gerar filtrada */}
-      <button className={`${color} text-white rounded-md py-2 px-5`} onClick={handleFilteredList}>
+      <button className={`${color} text-white rounded-md py-2 px-8`} onClick={handleFilteredList}>
         Gerar filtrada
       </button>
+
+      {/* Campo de mensagem ao lado dos dois botoes */}
       <span className='ml-5 text-black'>
         {!loading && message}
       </span>

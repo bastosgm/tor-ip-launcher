@@ -25,7 +25,7 @@ export const addException = async (req: Request, res: Response) => {
   const newIpException = new Exception()
   newIpException.ip = req.body.ip
   const ipExists = await Exception.findOne({ ip: newIpException.ip })
-  //se for de formato compativel com de um IP e ja nao existir
+  //se for de formato compativel com de um IP e ainda nao existir
   if (rgx.test(newIpException.ip) && !ipExists) {
     try {
       await newIpException.save()

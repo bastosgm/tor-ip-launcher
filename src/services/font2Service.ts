@@ -3,16 +3,17 @@ import Font2 from '../model/Font2'
 import { add, isAfter } from 'date-fns'
 import { LocalStorage } from 'node-localstorage'
 
-//Tera a funcao de puxar da fonte2, armazenar no BD e apenas atualizar os IPs adicionando e excluindo, de forma a deixar os IPs do banco = IPs da fonte2 naquele momento que houve atualizacao
+//Tera a funcao de puxar da fonte2, armazenar no BD e apenas atualizar os IPs adicionando e excluindo, de forma a deixar os IPs do banco iguais aos IPs da fonte2 naquele momento que houve atualizacao
 const font2 = async () => {
 
   //Definindo localStorage
   const localStorage = new LocalStorage('./dates')
+
   let ipsFont2: string[] = []
 
   //Datas para comparacao
   const now = new Date(Date.now())
-  const lastUpdate: Date = new Date(localStorage.getItem('lastUpdate') || '')
+  const lastUpdate = new Date(localStorage.getItem('lastUpdate') || '')
 
   //Se nao existir uma atualizacao anterior no localStorage, cria nova e permite atualizacao da font2
   if (!localStorage.getItem('lastUpdate')) {
@@ -39,7 +40,6 @@ const font2 = async () => {
   if (isAfter(now, add(lastUpdate, { minutes: 30 }))) {
     localStorage.setItem('lastUpdate', now.toString())
     console.log('New lastUpdate was created in localStorage.')
-    console.log('font2 is able to update.')
 
     try {
       //Extraindo da fonte 2
@@ -84,7 +84,7 @@ const font2 = async () => {
   //Testa se nao e vazio pra que nao exclua o que tem salvo no BD
   if (ipsFont2.length >= 1) {
     ipsBanco.map(async (ip) => {
-      //Conferi se existe o IP do banco na fonte2, caso nao, exclui
+      //Conferi se o IP que esta no banco existe na fonte2, caso nao, exclui
       if (!ipsFont2.includes(ip)) {
         try {
           await Font2.deleteOne({ ip })
@@ -96,7 +96,7 @@ const font2 = async () => {
     })
   }
 
-  //Puxa todos itens salvos no bd atualizado e faz um array de ipsBanco
+  //Puxa todos itens salvos no BD atualizado e faz um array de ipsBanco
   try {
     result = await Font2.find({})
     ipsBanco = result.map(obj => obj.ip)
