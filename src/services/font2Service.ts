@@ -65,21 +65,19 @@ const font2 = async () => {
   let ipsBanco: string[] = result.map(obj => obj.ip)
 
   //A cada loop e criado uma nova instancia, adicionando o IP e salvando no BD
-  if (ipsFont2) {
-    ipsFont2.map(async (ip) => {
-      //Conferi se ja existe o IP da ipsFont2 no banco, caso nao, adiciona
-      if (!ipsBanco.includes(ip)) {
-        const newFont2 = new Font2()
-        newFont2.ip = ip
-        try {
-          await newFont2.save()
-          console.log(`${newFont2.ip} has been added.`)
-        } catch (err) {
-          console.error(err)
-        }
+  ipsFont2.map(async (ip) => {
+    //Conferi se ja existe o IP da ipsFont2 no banco, caso nao, adiciona
+    if (!ipsBanco.includes(ip)) {
+      const newFont2 = new Font2()
+      newFont2.ip = ip
+      try {
+        await newFont2.save()
+        console.log(`${newFont2.ip} has been added.`)
+      } catch (err) {
+        console.error(err)
       }
-    })
-  }
+    }
+  })
 
   //Testa se nao e vazio pra que nao exclua o que tem salvo no BD
   if (ipsFont2.length >= 1) {
