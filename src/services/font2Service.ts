@@ -107,4 +107,4 @@ const font2 = async () => {
   return ipsBanco ? ipsBanco : []
 }
 
-
+export default font2
