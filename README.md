@@ -30,29 +30,31 @@ No ato de clonar o repositório, um arquivo .env necessita ser criado com a port
    MONGO_URL=mongodb://db:27017/exceptions
 ```
 
-Caso surja um erro da porta do mongodb em uso, encerre o processo que usa a mesma. Uma das formas será, por exemplo:
-
-```
-   sudo netstat -pna | grep 27017
-   sudo kill -9 <PID>
-```
-
 Execute o comando para compor os containers:
 
 ```
    docker-compose up
 ```
 
-**\_Obs.:** você pode usar a flag -d para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize sudo para ceder autorização ou y para aceitar algum pedido.</br>
-**\_Lembrando.:** O Docker precisa estar instalado, assim como o docker-compose e também o Node.
+Caso surja um erro da porta do mongodb em uso, encerre o processo que usa a mesma e rode o comando acima novamente. Uma das formas será, por exemplo:
 
-[Node](https://nodejs.org/en/download/)</br>
-[Docker](https://docs.docker.com/get-docker/)</br>
-[Docker compose](https://docs.docker.com/compose/install/)
+```
+   sudo netstat -pna | grep 27017
+   sudo kill -9 <PID>
+```
 
-Após já estar rodando os containers, para acessar a documentação da API acesse o link abaixo:
+```
+   docker-compose up
+```
 
-[Documentação API](http://localhost:5555/doc/) ou http://localhost:5555/doc
+**\_Obs.:** você pode usar a flag <em>-d</em> para rodar no background, ou deixar assim para obter algumas outras informações através do console. Caso precise, utilize <em>sudo</em> para ceder autorização ou <em>y</em> para aceitar algum pedido.</br>
+**\_Lembrando.:** O [Docker](https://docs.docker.com/get-docker/) precisa estar instalado, assim como o [Docker compose](https://docs.docker.com/compose/install/) e também o [Node](https://nodejs.org/en/download/).
+
+Após já estar rodando os containers, para acessar a aplicação, sua documentação ou o repositório no Github, siga um dos links abaixo:
+
+<strong>Página da aplicação:</strong> [Clique aqui](http://localhost:3001) ou use http://localhost:3001<br>
+<strong>Documentação:</strong> [Clique Aqui](http://localhost:5555/doc/) ou use http://localhost:5555/doc/ <br>
+<strong>Github:</strong> [Clique Aqui](https://github.com/bastosgm/IPs-Tor-API) ou use https://github.com/bastosgm/IPs-Tor-API
 
 <br>
 
