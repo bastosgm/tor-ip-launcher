@@ -18,7 +18,7 @@
     "mongoose": "^6.11.3",
     "node-localstorage": "^2.2.1",
     "swagger-ui-express": "^5.0.0",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
