@@ -67,9 +67,3 @@ Após já estar rodando os containers, para acessar a aplicação, sua documenta
 [Documentação do Swagger](https://swagger.io/docs/specification/about/)</br>
 [Fonte 1 dos IPs](https://www.dan.me.uk/tornodes)</br>
 [Fonte 2 dos IPs](https://onionoo.torproject.org/summary?limit=5000)
-
-<br>
-
-## Agradecimentos
-
-Este desafio foi proposto pela equipe da empresa [Proof. - Segurança da Informação](https://www.proof.com.br/). Muito grato pela experiência!
