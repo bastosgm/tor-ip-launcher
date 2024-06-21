@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-    IPs Tor API
+    tor-ip-launcher
 <hr>
 
 ![API](./public/img/readme-wallpaper.png)
